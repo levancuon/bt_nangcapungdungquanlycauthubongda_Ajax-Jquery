@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{/layout :: head}">
+    <title>Title</title>
+
+</head>
+<body>
+<div class="container w-50 mt-5 mx-auto rounded-4">
+    <div class="p-5 shadow">
+        <img src="https://banner2.cleanpng.com/20180324/zcq/kisspng-football-player-cartoon-football-5ab6a6e980f891.5574950615219197215283.jpg"
+             class="card-img-top">
+        <form action="/player/edit" th:object="${player}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <label for="name" class="form-label">Họ tên</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}">
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
+            </div>
+            <div class="mb-3">
+                <label for="dob" class="form-label">Ngày sinh</label>
+                <input type="date" class="form-control" id="dob" th:field="*{dob}">
+                <div th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}" ></div>
+
+            </div>
+            <div class="mb-3">
+                <label for="experience" class="form-label">Kinh nghiệm</label>
+                <input type="text" class="form-control" id="experience" th:field="*{experience}">
+                <div th:if="${#fields.hasErrors('experience')}" th:errors="*{experience}" ></div>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="position" class="form-label">Vị trí</label>
+                <select name="position" class="form-select" id="position" aria-label="Default select example" th:field="*{position}">
+                    <option name="position" value="">Vị trí</option>
+                    <option name="position"  value="Tiền đạo" >Tiền đạo</option>
+                    <option name="position"  value="Tiền vệ" >Tiền vệ</option>
+                    <option name="position"  value="Trung vệ" >Trung vệ</option>
+                    <option name="position"  value="Hậu vệ" >Hậu vệ</option>
+                    <option name="position"  value="Thủ môn" >Thủ môn</option>
+                </select>
+                <div th:if="${#fields.hasErrors('position')}" th:errors="*{position}" ></div>
+
+            </div>
+            <div class="mb-3">
+                <label for="club" class="form-label">Đội bóng</label>
+                <select class="form-select" id="club" aria-label="Default select example" th:field="*{club}">
+                    <option th:each="c:${clubs}" th:text="${c.name}" th:value="${c.id}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu</button>
+            <a th:href="@{/player}" class="btn btn-primary" >Thoát</a>
+        </form>
+    </div>
+
+</div>
+
+</body>
+
+</html>
